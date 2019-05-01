@@ -10,7 +10,7 @@ Currently this is completely barebones, and the minimum viable products aren't c
 Working on setting up Redux so I don't have to go through the pain of refactoring when this project is huge.
 
 ## The technical stuff:
-The current stack consists of HTML, Javascript, ReactJS, Redux, NodeJS, ExpressJS, Webpack and Babel. I'm going to try to keep this running in a way that only uses client-side, instead of necessitating any database connection. My hope is to keep this offline capable, and fully open source, no black-box crap for you to deal with.
+The current stack consists of HTML, Javascript, ReactJS, NodeJS, ExpressJS, Webpack and Babel. I'm going to try to keep this running in a way that only uses client-side, instead of necessitating any database connection. My hope is to keep this offline capable, and fully open source, no black-box for anyone to deal with.
 
 ## How to use
 Make sure you have NPM installed. Once you do, clone down the repo, and run `npm install`. When that's completed you should be able to use `npm run start`, then open up your browser and connect to `http://localhost:3000`. I'll implement an easier way to run this once it's, you know, actually working.

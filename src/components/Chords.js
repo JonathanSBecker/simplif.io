@@ -5,7 +5,8 @@ const Chords = (props) => {
     <div>
       <button onClick={(event) => {props.setHome(event)}}>Home</button>
       <div>Key 1:&nbsp;
-        <select id="key1" defaultValue="">
+        <select id="key1" onChange={(event) => {props.handleChange(event)}} 
+                          defaultValue="">
           <option disabled="disabled" value="">Select Key</option>
           <option value="C">C</option>
           <option value="Db">C#</option>
@@ -22,7 +23,8 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Chord 1:&nbsp;
-        <select id="chord1" defaultValue="">
+        <select id="chord1" onChange={(event) => {props.handleChange(event)}} 
+                            defaultValue="">
           <option disable="disable" value="">Select Mode</option>
           <option value="minor">Minor</option>
           <option value="major">Major</option>
@@ -36,7 +38,8 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Key 2:&nbsp;
-        <select id="key2" defaultValue="">
+        <select id="key2" onChange={(event) => {props.handleChange(event)}} 
+                          defaultValue="">
           <option disabled="disabled" value="">Select Key</option>
           <option value="C">C</option>
           <option value="Db">C#</option>
@@ -53,7 +56,8 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Chord 2:&nbsp;
-        <select id="chord2" defaultValue="">
+        <select id="chord2" onChange={(event) => {props.handleChange(event)}} 
+                            defaultValue="">
           <option disable="disable" value="">Select Mode</option>
           <option value="minor">Minor</option>
           <option value="major">Major</option>
@@ -67,7 +71,8 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Key 3:&nbsp;
-        <select id="key3" defaultValue="">
+        <select id="key3" onChange={(event) => {props.handleChange(event)}} 
+                          defaultValue="">
           <option disabled="disabled" value="">Select Key</option>
           <option value="C">C</option>
           <option value="Db">C#</option>
@@ -84,7 +89,8 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Chord 3:&nbsp;
-        <select id="chord3" defaultValue="">
+        <select id="chord3" onChange={(event) => {props.handleChange(event)}} 
+                            defaultValue="">
           <option disable="disable" value="">Select Mode</option>
           <option value="minor">Minor</option>
           <option value="major">Major</option>
@@ -98,7 +104,8 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Key 4:&nbsp;
-        <select id="key4" defaultValue="">
+        <select id="key4" onChange={(event) => {props.handleChange(event)}} 
+                          defaultValue="">
           <option disabled="disabled" value="">Select Key</option>
           <option value="C">C</option>
           <option value="Db">C#</option>
@@ -115,7 +122,8 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Chord 4:&nbsp;
-        <select id="chord4" defaultValue="">
+        <select id="chord4" onChange={(event) => {props.handleChange(event)}} 
+                            defaultValue="">
           <option disable="disable" value="">Select Mode</option>
           <option value="minor">Minor</option>
           <option value="major">Major</option>

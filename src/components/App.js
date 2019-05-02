@@ -7,23 +7,27 @@ import noteData from '../data/noteData.js';
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       page: "default",
       selected: "",
       key: "",
       mode: "",
-      chords: [],
+      chords: {},
       notes: [],
       sequence: [],
       beats: 4,
       bars: 4,
       lock: {}
     }
+
     this.setHome = this.setHome.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.setLock = this.setLock.bind(this);
+    this.setChords = this.setChords.bind(this);
   }
 
+  // Changes pageview
   handlePageChange (event) {
     event.preventDefault();
 
@@ -32,6 +36,7 @@ class App extends React.Component {
     });
   }
 
+  // plays sequence of notes
   playSequence(event, index=0) {
     if(event) event.preventDefault();
 
@@ -41,6 +46,7 @@ class App extends React.Component {
     }
   }
 
+  // handles most changes
   handleChange(event) {
     const property = event.target.name;
     const newValue = event.target.value;
@@ -50,6 +56,7 @@ class App extends React.Component {
     this.setState(newState);
   }
 
+  // Sets pageview to home
   setHome(event) {
     event.preventDefault();
 
@@ -58,6 +65,7 @@ class App extends React.Component {
     });
   }
 
+  // creates the note sequence
   calculateNotes(event) {
     event.preventDefault();
     const numNotes = this.state.beats * this.state.bars;
@@ -89,6 +97,7 @@ class App extends React.Component {
     }
   }
 
+  // locks notes in place
   setLock (event) {
     event.preventDefault();
     const newLock = this.state.lock;
@@ -111,6 +120,7 @@ class App extends React.Component {
     });
   }
 
+  // clears all notes
   clearAll (event) {
     event.preventDefault();
 
@@ -126,6 +136,7 @@ class App extends React.Component {
     this.setState(newState);
   }
 
+  // unlocks all notes
   unlockAll (event) {
     event.preventDefault();
 
@@ -138,10 +149,14 @@ class App extends React.Component {
     this.setState(newLock);
   }
 
+  // sets chords
   setChords (event) {
-    
+    event.preventDefault();
+
+    console.log(event.target.id);
   }
 
+  // render
   render () {
     if(this.state.page === "Mode") {
       return (
@@ -157,8 +172,11 @@ class App extends React.Component {
     } else if (this.state.page === "Chords") {
       return (
         <div>
-          <Chords setHome={this.setHome} handleChange={this.handleChange}/>
-          <button onClick={(event) => {this.calculateNotes(event)}}>Sequence</button>
+          <Chords setHome={this.setHome} handleChange={this.setChords}/>
+          <button onClick={(event) => {this.calculateNotes(event)}}>Sequence</button><br />
+          <button onClick={(event) => {this.playSequence(event)}}>Play Sequence</button>
+          <button onClick={(event) => {this.unlockAll(event)}}>Unlock All</button>
+          <button onClick={(event) => {this.clearAll(event)}}>Clear All</button>
           <Sequencer sequence={this.state.sequence}/>
         </div>
       )

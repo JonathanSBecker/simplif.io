@@ -30,7 +30,7 @@ const Mode = (props) => {
           <option value="lydian">Lydian</option>
           <option value="mixolydian">Mixolydian</option>
           <option value="aeolian">Aeolian</option>
-          <option value="locian">Locrian</option>
+          <option value="locrian">Locrian</option>
         </select>
       </div>
     </div>

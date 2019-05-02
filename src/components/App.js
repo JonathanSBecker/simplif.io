@@ -21,7 +21,7 @@ class App extends React.Component {
     }
     this.setHome = this.setHome.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.setLock = this.setLock.bind(this)
+    this.setLock = this.setLock.bind(this);
   }
 
   handlePageChange (event) {
@@ -136,6 +136,10 @@ class App extends React.Component {
     }
 
     this.setState(newLock);
+  }
+
+  setChords (event) {
+    
   }
 
   render () {

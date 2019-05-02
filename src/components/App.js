@@ -19,6 +19,9 @@ class App extends React.Component {
       bars: 4,
       lock: {}
     }
+    this.setHome = this.setHome.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.setLock = this.setLock.bind(this)
   }
 
   handlePageChange (event) {
@@ -108,22 +111,49 @@ class App extends React.Component {
     });
   }
 
+  clearAll (event) {
+    event.preventDefault();
+
+    const newState = {
+
+      notes: [],
+      sequence: [],
+      beats: 4,
+      bars: 4,
+      lock: {}
+    };
+
+    this.setState(newState);
+  }
+
+  unlockAll (event) {
+    event.preventDefault();
+
+    const newLock = {};
+
+    for(let i = 0; i < this.state.notes.length; i++) {
+      document.getElementById(i).innerHTML = "Lock";
+    }
+
+    this.setState(newLock);
+  }
+
   render () {
     if(this.state.page === "Mode") {
       return (
         <div>
-          <Mode setHome={this.setHome.bind(this)} handleChange={this.handleChange.bind(this)}/>
+          <Mode setHome={this.setHome} handleChange={this.handleChange}/>
           <button onClick={(event) => {this.calculateNotes(event)}}>Sequence</button><br />
           <button onClick={(event) => {this.playSequence(event)}}>Play Sequence</button>
-          <button>Unlock All</button>
-          <button>Clear All</button>
-          <Sequencer sequence={this.state.sequence} notes={this.state.notes} lock={this.setLock.bind(this)}/>
+          <button onClick={(event) => {this.unlockAll(event)}}>Unlock All</button>
+          <button onClick={(event) => {this.clearAll(event)}}>Clear All</button>
+          <Sequencer sequence={this.state.sequence} notes={this.state.notes} lock={this.setLock}/>
         </div>
       )
     } else if (this.state.page === "Chords") {
       return (
         <div>
-          <Chords setHome={this.setHome.bind(this)} handleChange={this.handleChange.bind(this)}/>
+          <Chords setHome={this.setHome} handleChange={this.handleChange}/>
           <button onClick={(event) => {this.calculateNotes(event)}}>Sequence</button>
           <Sequencer sequence={this.state.sequence}/>
         </div>

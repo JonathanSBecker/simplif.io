@@ -33,7 +33,6 @@ const Mode = (props) => {
           <option value="locian">Locrian</option>
         </select>
       </div>
-      <button>Sequence</button>
     </div>
   );
 }

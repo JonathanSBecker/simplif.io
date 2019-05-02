@@ -1,16 +1,18 @@
 import React from 'react';
 import Mode from './Mode.js';
 import Chords from './Chords.js';
+import Sequencer from './Sequencer.js';
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       page: "default",
       selected: "",
       key: "",
       mode: "",
-      chords: []
+      chords: [],
+      sequence: []
     }
   }
 
@@ -42,11 +44,19 @@ class App extends React.Component {
   render () {
     if(this.state.page === "Mode") {
       return (
-        <Mode setHome={this.setHome.bind(this)} handleChange={this.handleChange.bind(this)}/>
+        <div>
+          <Mode setHome={this.setHome.bind(this)} handleChange={this.handleChange.bind(this)}/>
+          <button>Sequence</button>
+          <Sequencer sequence={this.state.sequence}/>
+        </div>
       )
     } else if (this.state.page === "Chords") {
       return (
-        <Chords setHome={this.setHome.bind(this)} handleChange={this.handleChange.bind(this)}/>
+        <div>
+          <Chords setHome={this.setHome.bind(this)} handleChange={this.handleChange.bind(this)}/>
+          <button>Sequence</button>
+          <Sequencer sequence={this.state.sequence}/>
+        </div>
       )
     } else {
       return (

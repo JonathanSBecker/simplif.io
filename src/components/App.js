@@ -13,7 +13,18 @@ class App extends React.Component {
       selected: "",
       key: "",
       mode: "",
-      chords: {},
+      chords: {
+        chord1: "",
+        chord2: "",
+        chord3: "",
+        chord4: ""
+      },
+      chordKeys: {
+        key1: "",
+        key2: "",
+        key3: "",
+        key4: ""
+      },
       notes: [],
       sequence: [],
       beats: 4,
@@ -39,10 +50,16 @@ class App extends React.Component {
   // plays sequence of notes
   playSequence(event, index=0) {
     if(event) event.preventDefault();
-
-    this.state.sequence[index].play();
-    if(index < this.state.sequence.length - 1) { 
-      setTimeout(() => {this.playSequence(null, index+1)}, 500);
+    if(!this.state.sequence[index]) {
+      this.calculateNotes();
+      setTimeout(() => {
+        this.playSequence(null, index);
+      }, 100)
+    } else {
+      this.state.sequence[index].play();
+      if(index < this.state.sequence.length - 1) { 
+        setTimeout(() => {this.playSequence(null, index+1)}, 500);
+      }
     }
   }
 
@@ -67,7 +84,7 @@ class App extends React.Component {
 
   // creates the note sequence
   calculateNotes(event) {
-    event.preventDefault();
+    if (event) event.preventDefault();
     const numNotes = this.state.beats * this.state.bars;
     const notes = noteData.notes;
     const rootIndex = notes.indexOf(this.state.key);
@@ -75,6 +92,10 @@ class App extends React.Component {
     const newSequence = [];
 
     if (this.state.page === "Mode") {
+      if(!this.state.key || !this.state.mode) {
+        alert("Please fill out all fields!");
+        return;
+      }
       const mode = noteData.modes[this.state.mode];
 
       for(let i = 0; i < numNotes; i++) {
@@ -82,6 +103,35 @@ class App extends React.Component {
           newNoteSequence.push(this.state.notes[i]);
         } else {
           newNoteSequence.push(notes[rootIndex + mode[Math.floor(Math.random()*mode.length)]]);
+        }
+      }
+
+      for(let note of newNoteSequence) {
+        const audio = new Audio(`${note}.wav`);
+        newSequence.push(audio);
+      }
+
+      this.setState({
+        notes: newNoteSequence,
+        sequence: newSequence
+      });
+    } else if (this.state.page === "Chords") {
+      const chords = this.state.chords;
+      const chordKeys = this.state.chordKeys;
+
+      for (let key in chords) {
+        if (!chords[key]) {
+          alert("Please fill out all fields!");
+          return;
+        }
+
+        for (let i = 0; i < this.state.beats; i++){
+          if(this.state.lock[i]) {
+            newNoteSequence.push(this.state.notes[i]);
+          } else {
+            console.log(chords[key]);
+            newNoteSequence.push(notes[rootIndex + chords[key][Math.floor(Math.random()*chords[key].length)]]);
+          }
         }
       }
 
@@ -114,7 +164,6 @@ class App extends React.Component {
       document.getElementById(event.target.id).innerHTML = "Unlock";
     }
 
-    console.log(newLock);
     this.setState({
       lock: newLock
     });
@@ -125,7 +174,16 @@ class App extends React.Component {
     event.preventDefault();
 
     const newState = {
-
+      chords: {
+        key1: "",
+        chord1: "",
+        key2: "",
+        chord2: "",
+        key3: "",
+        chord3: "",
+        key4: "",
+        chord4: ""
+      },
       notes: [],
       sequence: [],
       beats: 4,
@@ -153,7 +211,22 @@ class App extends React.Component {
   setChords (event) {
     event.preventDefault();
 
-    console.log(event.target.id);
+    const newChords = this.state.chords;
+    newChords[event.target.id] = event.target.value;
+    this.setState({
+      chords: newChords
+    });
+  }
+
+  // sets the keys for each chord
+  setChordKeys (event) {
+    event.preventDefault();
+
+    const newKeys = this.state.chordKeys;
+    newKeys[event.target.id] = event.target.value;
+    this.setState({
+      chordKeys: newKeys
+    });
   }
 
   // render
@@ -177,7 +250,7 @@ class App extends React.Component {
           <button onClick={(event) => {this.playSequence(event)}}>Play Sequence</button>
           <button onClick={(event) => {this.unlockAll(event)}}>Unlock All</button>
           <button onClick={(event) => {this.clearAll(event)}}>Clear All</button>
-          <Sequencer sequence={this.state.sequence}/>
+          {/* <Sequencer sequence={this.state.sequence}/> */}
         </div>
       )
     } else {

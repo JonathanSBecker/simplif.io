@@ -25,7 +25,7 @@ const Chords = (props) => {
       <div>Chord 1:&nbsp;
         <select id="chord1" onChange={(event) => {props.handleChange(event)}} 
                             defaultValue="">
-          <option disable="disable" value="">Select Mode</option>
+          <option disabled="disabled" value="">Select Mode</option>
           <option value="minor">Minor</option>
           <option value="major">Major</option>
           <option value="diminished">Diminished</option>
@@ -58,7 +58,7 @@ const Chords = (props) => {
       <div>Chord 2:&nbsp;
         <select id="chord2" onChange={(event) => {props.handleChange(event)}} 
                             defaultValue="">
-          <option disable="disable" value="">Select Mode</option>
+          <option disabled="disabled" value="">Select Mode</option>
           <option value="minor">Minor</option>
           <option value="major">Major</option>
           <option value="diminished">Diminished</option>
@@ -91,7 +91,7 @@ const Chords = (props) => {
       <div>Chord 3:&nbsp;
         <select id="chord3" onChange={(event) => {props.handleChange(event)}} 
                             defaultValue="">
-          <option disable="disable" value="">Select Mode</option>
+          <option disabled="disabled" value="">Select Mode</option>
           <option value="minor">Minor</option>
           <option value="major">Major</option>
           <option value="diminished">Diminished</option>
@@ -124,7 +124,7 @@ const Chords = (props) => {
       <div>Chord 4:&nbsp;
         <select id="chord4" onChange={(event) => {props.handleChange(event)}} 
                             defaultValue="">
-          <option disable="disable" value="">Select Mode</option>
+          <option disabled="disabled" value="">Select Mode</option>
           <option value="minor">Minor</option>
           <option value="major">Major</option>
           <option value="diminished">Diminished</option>

@@ -7,7 +7,7 @@ I've been a musician my whole life and I needed a project to work on! This seeme
 ## State of the composition:
 Currently this is completely barebones, and the minimum viable products aren't completed. I will update when it is completed.
 
-Working on setting up Redux so I don't have to go through the pain of refactoring when this project is huge.
+The sequencer works with the "Mode" section, however you're currently not able to lock notes in place.
 
 ## The technical stuff:
 The current stack consists of HTML, Javascript, ReactJS, NodeJS, ExpressJS, Webpack and Babel. I'm going to try to keep this running in a way that only uses client-side, instead of necessitating any database connection. My hope is to keep this offline capable, and fully open source, no black-box for anyone to deal with.

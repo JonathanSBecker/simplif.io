@@ -17,7 +17,7 @@ class App extends React.Component {
       sequence: [],
       beats: 4,
       bars: 4,
-      hold: []
+      lock: {}
     }
   }
 
@@ -57,17 +57,21 @@ class App extends React.Component {
 
   calculateNotes(event) {
     event.preventDefault();
+    const numNotes = this.state.beats * this.state.bars;
+    const notes = noteData.notes;
+    const rootIndex = notes.indexOf(this.state.key);
+    const newNoteSequence = [];
+    const newSequence = [];
 
     if (this.state.page === "Mode") {
-      const numNotes = this.state.beats * this.state.bars;
-      const notes = noteData.notes;
-      const rootIndex = notes.indexOf(this.state.key);
       const mode = noteData.modes[this.state.mode];
-      const newNoteSequence = [];
-      const newSequence = [];
 
       for(let i = 0; i < numNotes; i++) {
-        newNoteSequence.push(notes[rootIndex + mode[Math.floor(Math.random()*mode.length)]]);
+        if(this.state.lock[i]) {
+          newNoteSequence.push(this.state.notes[i]);
+        } else {
+          newNoteSequence.push(notes[rootIndex + mode[Math.floor(Math.random()*mode.length)]]);
+        }
       }
 
       for(let note of newNoteSequence) {
@@ -82,6 +86,28 @@ class App extends React.Component {
     }
   }
 
+  setLock (event) {
+    event.preventDefault();
+    const newLock = this.state.lock;
+
+    if(typeof newLock[event.target.id] === "boolean") {
+      newLock[event.target.id] = !newLock[event.target.id];
+      if(newLock[event.target.id]) {
+        document.getElementById(event.target.id).innerHTML = "Unlock";
+      } else {
+        document.getElementById(event.target.id).innerHTML = "Lock";
+      }
+    } else {
+      newLock[event.target.id] = true;
+      document.getElementById(event.target.id).innerHTML = "Unlock";
+    }
+
+    console.log(newLock);
+    this.setState({
+      lock: newLock
+    });
+  }
+
   render () {
     if(this.state.page === "Mode") {
       return (
@@ -89,7 +115,9 @@ class App extends React.Component {
           <Mode setHome={this.setHome.bind(this)} handleChange={this.handleChange.bind(this)}/>
           <button onClick={(event) => {this.calculateNotes(event)}}>Sequence</button><br />
           <button onClick={(event) => {this.playSequence(event)}}>Play Sequence</button>
-          <Sequencer sequence={this.state.sequence} notes={this.state.notes}/>
+          <button>Unlock All</button>
+          <button>Clear All</button>
+          <Sequencer sequence={this.state.sequence} notes={this.state.notes} lock={this.setLock.bind(this)}/>
         </div>
       )
     } else if (this.state.page === "Chords") {

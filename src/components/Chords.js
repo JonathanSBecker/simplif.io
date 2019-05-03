@@ -5,7 +5,7 @@ const Chords = (props) => {
     <div>
       <button onClick={(event) => {props.setHome(event)}}>Home</button>
       <div>Key 1:&nbsp;
-        <select id="key1" onChange={(event) => {props.handleChange(event)}} 
+        <select id="key1" onChange={(event) => {props.handleKeyChange(event)}} 
                           defaultValue="">
           <option disabled="disabled" value="">Select Key</option>
           <option value="C">C</option>
@@ -38,7 +38,7 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Key 2:&nbsp;
-        <select id="key2" onChange={(event) => {props.handleChange(event)}} 
+        <select id="key2" onChange={(event) => {props.handleKeyChange(event)}} 
                           defaultValue="">
           <option disabled="disabled" value="">Select Key</option>
           <option value="C">C</option>
@@ -71,7 +71,7 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Key 3:&nbsp;
-        <select id="key3" onChange={(event) => {props.handleChange(event)}} 
+        <select id="key3" onChange={(event) => {props.handleKeyChange(event)}} 
                           defaultValue="">
           <option disabled="disabled" value="">Select Key</option>
           <option value="C">C</option>
@@ -104,7 +104,7 @@ const Chords = (props) => {
         </select>
       </div>
       <div>Key 4:&nbsp;
-        <select id="key4" onChange={(event) => {props.handleChange(event)}} 
+        <select id="key4" onChange={(event) => {props.handleKeyChange(event)}} 
                           defaultValue="">
           <option disabled="disabled" value="">Select Key</option>
           <option value="C">C</option>

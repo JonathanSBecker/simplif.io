@@ -36,6 +36,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.setLock = this.setLock.bind(this);
     this.setChords = this.setChords.bind(this);
+    this.setChordKeys = this.setChordKeys.bind(this);
   }
 
   // Changes pageview
@@ -87,17 +88,17 @@ class App extends React.Component {
     if (event) event.preventDefault();
     const numNotes = this.state.beats * this.state.bars;
     const notes = noteData.notes;
-    const rootIndex = notes.indexOf(this.state.key);
     const newNoteSequence = [];
     const newSequence = [];
-
+    
     if (this.state.page === "Mode") {
       if(!this.state.key || !this.state.mode) {
         alert("Please fill out all fields!");
         return;
       }
       const mode = noteData.modes[this.state.mode];
-
+      const rootIndex = notes.indexOf(this.state.key);
+      
       for(let i = 0; i < numNotes; i++) {
         if(this.state.lock[i]) {
           newNoteSequence.push(this.state.notes[i]);
@@ -118,28 +119,35 @@ class App extends React.Component {
     } else if (this.state.page === "Chords") {
       const chords = this.state.chords;
       const chordKeys = this.state.chordKeys;
-
-      for (let key in chords) {
-        if (!chords[key]) {
+      
+      for (let i = 0; i < 4; i++) {
+        if (!chords[`chord${i+1}`] || !chordKeys[`key${i+1}`]) {
           alert("Please fill out all fields!");
           return;
         }
+        
+        const chordTypes = noteData.chordTypes;
 
-        for (let i = 0; i < this.state.beats; i++){
-          if(this.state.lock[i]) {
+        for (let j = 0; j < this.state.beats; j++){
+          if(this.state.lock[(i*4)+j]) {
             newNoteSequence.push(this.state.notes[i]);
           } else {
-            console.log(chords[key]);
-            newNoteSequence.push(notes[rootIndex + chords[key][Math.floor(Math.random()*chords[key].length)]]);
+            const index = notes.indexOf(chordKeys[`key${i+1}`]);
+            const newNoteIndex = index + chordTypes[chords[`chord${i+1}`]][Math.floor(Math.random()*chordTypes[chords[`chord${i+1}`]].length)]
+            console.log(newNoteIndex);
+            newNoteSequence.push(notes[newNoteIndex]);
           }
         }
       }
+
+      console.log(newNoteSequence);
 
       for(let note of newNoteSequence) {
         const audio = new Audio(`${note}.wav`);
         newSequence.push(audio);
       }
 
+      console.log(newSequence);
       this.setState({
         notes: newNoteSequence,
         sequence: newSequence
@@ -245,12 +253,12 @@ class App extends React.Component {
     } else if (this.state.page === "Chords") {
       return (
         <div>
-          <Chords setHome={this.setHome} handleChange={this.setChords}/>
+          <Chords setHome={this.setHome} handleChange={this.setChords} handleKeyChange={this.setChordKeys}/>
           <button onClick={(event) => {this.calculateNotes(event)}}>Sequence</button><br />
           <button onClick={(event) => {this.playSequence(event)}}>Play Sequence</button>
           <button onClick={(event) => {this.unlockAll(event)}}>Unlock All</button>
           <button onClick={(event) => {this.clearAll(event)}}>Clear All</button>
-          {/* <Sequencer sequence={this.state.sequence}/> */}
+          <Sequencer sequence={this.state.sequence} notes={this.state.notes} lock={this.setLock}/>
         </div>
       )
     } else {

@@ -133,21 +133,18 @@ class App extends React.Component {
             newNoteSequence.push(this.state.notes[i]);
           } else {
             const index = notes.indexOf(chordKeys[`key${i+1}`]);
-            const newNoteIndex = index + chordTypes[chords[`chord${i+1}`]][Math.floor(Math.random()*chordTypes[chords[`chord${i+1}`]].length)]
-            console.log(newNoteIndex);
+            const newChordType = chordTypes[chords[`chord${i+1}`]]
+            const newNoteIndex = index + newChordType[Math.floor(Math.random()*newChordType.length)];
             newNoteSequence.push(notes[newNoteIndex]);
           }
         }
       }
-
-      console.log(newNoteSequence);
 
       for(let note of newNoteSequence) {
         const audio = new Audio(`${note}.wav`);
         newSequence.push(audio);
       }
 
-      console.log(newSequence);
       this.setState({
         notes: newNoteSequence,
         sequence: newSequence

@@ -59,7 +59,7 @@ class App extends React.Component {
     } else {
       this.state.sequence[index].play();
       if(index < this.state.sequence.length - 1) { 
-        setTimeout(() => {this.playSequence(null, index+1)}, 500);
+        setTimeout(() => {this.playSequence(null, index+1)}, 400);
       }
     }
   }

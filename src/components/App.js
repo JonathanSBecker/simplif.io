@@ -180,14 +180,16 @@ class App extends React.Component {
 
     const newState = {
       chords: {
-        key1: "",
         chord1: "",
-        key2: "",
         chord2: "",
-        key3: "",
         chord3: "",
-        key4: "",
         chord4: ""
+      },
+      chordKeys: {
+        key1: "",
+        key2: "",
+        key3: "",
+        key4: ""
       },
       notes: [],
       sequence: [],
